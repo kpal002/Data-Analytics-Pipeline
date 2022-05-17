@@ -13,5 +13,5 @@ Motivation: In this homework you will implement a basic data analysis pipeline: 
 2. starter code
 
 
-<sup>**Problem 1: Conceptual Design**
+# Heading1 **Problem 1: Conceptual Design**
 
