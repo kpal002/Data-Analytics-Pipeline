@@ -165,3 +165,16 @@ CREATE INDEX FieldP ON Field(p);
 CREATE INDEX FieldV ON Field(v);
 
 ````
+All the queries are listed in _solution.sql_
+
+## **Problem 5: Data Transformation**
+
+In this part, we will transform the DBLP data from _RawSchema_ to _PubSchema_. This step is sometimes done using an ETL tool, but we will just use several SQL queries. We need to write queries to populate the tables in _PubSchema_. 
+
+The RawSchema and PubSchema are quite different, so there is a need to go through some trial and error to get the transformation right. Here are a few hints:
+
+1. Create temporary tables (and indices) to speedup the data transformation. Remember to drop all your temp tables when you are done
+
+2. It is very inefficient to bulk insert into a table that contains a key and/or foreign keys (why?); to speed up, you may drop the key/foreign key constraints, perform the bulk insertion, then alter Table to create the constraints.
+
+3. PubSchema requires an integer key for each author and each publication. Use a sequence in postgres.
