@@ -43,3 +43,4 @@ All the commands for creating tables are written in [createPubSchema.sql](https:
 ````
 $ .read createPubSchema.sql
 ````
+## Problem 3: Data Acquisition
