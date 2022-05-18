@@ -135,3 +135,24 @@ SELECT p AS PublicationType, COUNT(k)
 
 ````
 2. We say that a field occurs in a publication type, if there exists at least one publication of that type having that field. For example, _publisher_ occurs in _incollection_, but _publisher_ does not occur in _inproceedings_. Find the fields that occur in all publications types. Your query should return a set of field names: for example it may return title, if title occurs in all publication types (article, inproceedings, etc. notice that title does not have to occur in every publication instance, only in some instance of every type), but it should not return publisher (since the latter does not occur in any publication of type inproceedings).
+
+````
+SELECT f.p, COUNT(DISTINCT p.p)
+	FROM Pub p INNER JOIN Field f ON p.k = f.k
+	GROUP BY f.p
+	HAVING COUNT(DISTINCT p.p) >= 8;
+
+
+/*
+
+   p    | count 
+--------+-------
+ author |     8
+ ee     |     8
+ note   |     8
+ title  |     8
+ year   |     8
+(5 rows)
+
+*/
+````
