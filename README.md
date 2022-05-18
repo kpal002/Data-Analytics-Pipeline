@@ -143,8 +143,6 @@ SELECT f.p, COUNT(DISTINCT p.p)
 	HAVING COUNT(DISTINCT p.p) >= 8;
 
 
-/*
-
    p    | count 
 --------+-------
  author |     8
@@ -154,5 +152,16 @@ SELECT f.p, COUNT(DISTINCT p.p)
  year   |     8
 (5 rows)
 
-*/
+````
+
+3. The two queries above may be slow. Speed them up by creating appropriate indexes, using the CREATE INDEX statement. You also need indexes on Pub and Field for the next question; create all indices you need on RawSchema
+
+````
+CREATE INDEX PubKey ON Pub(k);
+CREATE INDEX PubP ON Pub(p);
+
+CREATE INDEX FieldKey ON Field(k);
+CREATE INDEX FieldP ON Field(p);
+CREATE INDEX FieldV ON Field(v);
+
 ````
