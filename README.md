@@ -91,3 +91,8 @@ For example, if we go to the [dblp](https://dblp.uni-trier.de/db/) website , che
   bibsource = {dblp computer science bibliography, http://dblp.org}
 }
 ````
+The key of this entry is _conf/uss/GeambasuKLL09_. We can try to get the same info by running the following SQL query:
+
+````
+select * from Pub p, Field f where p.k='conf/uss/GeambasuKLL09' and f.k='conf/uss/GeambasuKLL09'
+````
