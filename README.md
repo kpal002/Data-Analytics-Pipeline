@@ -55,3 +55,4 @@ Then run:
 ````
 python wrapper.py
 ````
+This will take several minutes, and produces two large files: _pubFile.txt_ and _fieldFile.txt_. 
