@@ -115,3 +115,23 @@ select * from Pub p, Field f where p.k='conf/uss/GeambasuKLL09' and f.k='conf/us
 Write SQL Queries to answer the following questions using _RawSchema_:
 
 1. For each type of publication, count the total number of publications of that type. Your query should return a set of (publication-type, count) pairs. For example (article, 20000), (inproceedings, 30000), ... (not the real answer).
+````
+SELECT p AS PublicationType, COUNT(k)
+        FROM Pub
+        GROUP BY p;
+        
+        
+        publicationtype |  count  
+-----------------+---------
+ article         | 2860157
+ book            |   19408
+ incollection    |   68035
+ inproceedings   | 3035079
+ mastersthesis   |      13
+ phdthesis       |   87188
+ proceedings     |   50938
+ www             | 3004514
+(8 rows)
+
+````
+2. We say that a field occurs in a publication type, if there exists at least one publication of that type having that field. For example, _publisher_ occurs in _incollection_, but _publisher_ does not occur in _inproceedings_. Find the fields that occur in all publications types. Your query should return a set of field names: for example it may return title, if title occurs in all publication types (article, inproceedings, etc. notice that title does not have to occur in every publication instance, only in some instance of every type), but it should not return publisher (since the latter does not occur in any publication of type inproceedings).
