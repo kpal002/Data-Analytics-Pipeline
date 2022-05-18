@@ -59,4 +59,16 @@ This will take several minutes, and produces two large files: _pubFile.txt_ and 
 ````
 psql -f createRawSchema.sql dblp
 ````
+
+This creates two tables, _Pub_ and _Field_, then imports the data (which may take a few minutes). We will call these two tables _RawSchema_ and _RawData_ respectively.
+
 ## **Problem 4: Querying the Raw Data**
+
+During typical data ingestion, we sometimes need to discover the true schema of the data, and for that we need to query the _RawData_.
+
+Start psql then type the following commands:
+
+````
+select * from Pub limit 50;
+select * from Field limit 50;
+````
