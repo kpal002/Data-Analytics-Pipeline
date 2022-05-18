@@ -36,12 +36,12 @@ In this part we create the SQL tables in a database like postgres, MYSQL, or SQL
 
 
 ````
-$ sqlite3 dblp.db
+$ psql dblp
 ````
 All the commands for creating tables are written in [createPubSchema.sql](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/createPubSchema.sql). To run from the command line, run
 
 ````
-$ .read createPubSchema.sql
+$ psql -f createPubSchema.sql dblp
 ````
 ## **Problem 3: Data Acquisition**
 
@@ -55,4 +55,8 @@ Then run:
 ````
 python wrapper.py
 ````
-This will take several minutes, and produces two large files: _pubFile.txt_ and _fieldFile.txt_. 
+This will take several minutes, and produces two large files: _pubFile.txt_ and _fieldFile.txt_. Finally run
+````
+psql -f createRawSchema.sql dblp
+````
+## **Problem 4: Querying the Raw Data**
