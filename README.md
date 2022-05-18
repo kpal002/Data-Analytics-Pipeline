@@ -1,4 +1,4 @@
-# Data-Analytics-Pipelinne
+# Data-Analytics-Pipeline
 **Objectives**: To get familiar with the main components of the data analytic pipeline: schema design, data acquisition, data transformation, and querying.
 
 Files provided: [wrapper.py](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/wrapper.py), [dblp.dtd](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/dblp.dtd) and [createRawSchema.sql](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/createRawSchema.sql)
@@ -32,14 +32,14 @@ E/R Diagram. Design the E/R diagram, consisting of the entity sets and relations
 
 ## **Problem 2: Schema Design**
 
-In this part we create the SQL tables in a database like postgres, MYSQL, or SQLLite. First, check that you have installed postgres (or another db) on your computer. Then, create an empty database by running the following commands (sample commands for postgres):
+In this part we create the SQL tables in a database like postgres, MYSQL, or SQLLite. First, check that you have installed postgres (or another db) on your computer. Then, create an empty database by running the following commands (sample commands for SQLLite):
 
 
 ````
-$ createdb dblp
+$ sqlite3 dblp.db
 ````
-To run queries in postgres, type:
+All the commands for creating tables are written in [createPubSchema.sql](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/createPubSchema.sql). To run from the command line, run
 
 ````
-$ psql dblp
+$ .read createPubSchema.sql
 ````
