@@ -21,7 +21,7 @@ E/R Diagram. Design the E/R diagram, consisting of the entity sets and relations
 
 1. Author has attributes: **id** (a key; must be unique), **name**, and **homepage** (a URL)
 2. Publication has attributes: **pubid** (the key -- an integer), **pubkey** (an alternative key, text; must be unique), **title**, and **year**. It has the following subclasses: \
-  a. Article has additional attributes: ````diff + **journal, month, volume, number** \
+  a. Article has additional attributes: _ **journal_, _month_, _volume_, _number**_ \
   b. Book has additional attributes: **publisher, isbn** \
   c. Incollection has additional attributes: **booktitle, publisher, isbn** \
   d. Inproceedings has additional attributes: **booktitle**, **editor**
