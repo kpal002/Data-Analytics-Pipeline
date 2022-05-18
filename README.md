@@ -32,3 +32,8 @@ E/R Diagram. Design the E/R diagram, consisting of the entity sets and relations
 
 ## **Problem 2: Schema Design**
 
+In this part we create the SQL tables in a database like postgres, MYSQL, or SQLLite. First, check that you have installed postgres (or another db) on your computer. Then, create an empty database by running the following commands (sample commands for postgres):
+
+````
+$ createdb dblp
+````
