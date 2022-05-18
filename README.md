@@ -37,3 +37,8 @@ In this part we create the SQL tables in a database like postgres, MYSQL, or SQL
 ````
 $ createdb dblp
 ````
+To run queries in postgres, type:
+
+````
+$ psql dblp
+````
