@@ -42,3 +42,4 @@ To run queries in postgres, type:
 ````
 $ psql dblp
 ````
+
