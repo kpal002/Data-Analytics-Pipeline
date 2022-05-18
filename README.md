@@ -29,3 +29,4 @@ E/R Diagram. Design the E/R diagram, consisting of the entity sets and relations
 3. There is a many-many relationship Authored from Author to Publication 
 
 [alt text](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/PubER.pdf)
+<embed src="PubER.pdf" type="application/pdf">
