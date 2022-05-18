@@ -26,3 +26,6 @@ E/R Diagram. Design the E/R diagram, consisting of the entity sets and relations
   c. Incollection has additional attributes: **booktitle, publisher, isbn** \
   d. Inproceedings has additional attributes: **booktitle**, **editor**
 3. There is a many-many relationship Authored from Author to Publication
+
+````diff
++ text
