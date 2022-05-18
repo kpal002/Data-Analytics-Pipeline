@@ -96,3 +96,22 @@ The key of this entry is _conf/uss/GeambasuKLL09_. We can try to get the same in
 ````
 select * from Pub p, Field f where p.k='conf/uss/GeambasuKLL09' and f.k='conf/uss/GeambasuKLL09'
 ````
+````
+           k            |       p       |           k            | i  |     p     |                                v                                 
+------------------------+---------------+------------------------+----+-----------+------------------------------------------------------------------
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 0  | author    | Roxana Geambasu
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 1  | author    | Tadayoshi Kohno
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 2  | author    | Amit A. Levy
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 3  | author    | Henry M. Levy
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 4  | title     | Vanish: Increasing Data Privacy with Self-Destructing Data.
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 5  | pages     | 299-316
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 6  | year      | 2009
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 7  | booktitle | USENIX Security Symposium
+ conf/uss/GeambasuKLL09 | inproceedings | conf/uss/GeambasuKLL09 | 8  | ee        | http://www.usenix.org/events/sec09/tech/full_papers/geambasu.pdf
+  | conf/uss/2009
+  | db/conf/uss/uss2009.html#GeambasuKLL09
+(11 rows)
+````
+Write SQL Queries to answer the following questions using _RawSchema_:
+
+1. For each type of publication, count the total number of publications of that type. Your query should return a set of (publication-type, count) pairs. For example (article, 20000), (inproceedings, 30000), ... (not the real answer).
