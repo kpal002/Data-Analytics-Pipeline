@@ -30,3 +30,5 @@ E/R Diagram. Design the E/R diagram, consisting of the entity sets and relations
 
 ![alt text](PubER.png)
 
+## **Problem 2: Schema Design**
+
