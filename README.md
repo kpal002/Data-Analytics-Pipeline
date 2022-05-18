@@ -43,4 +43,8 @@ All the commands for creating tables are written in [createPubSchema.sql](https:
 ````
 $ .read createPubSchema.sql
 ````
-## Problem 3: Data Acquisition
+## **Problem 3: Data Acquisition**
+
+Typically, this step consists of downloading data, or extracting it with a software tool, or inputting it manually, or all of the above. Then it involves writing and running some python script, called a wrapper that reformats the data into some CSV format that we can upload to the database.
+
+
