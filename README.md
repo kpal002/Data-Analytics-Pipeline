@@ -181,3 +181,12 @@ The RawSchema and PubSchema are quite different, so there is a need to go throug
 4. DBLP knows the Homepage of some authors, and you need to store these in the Author table. But where do you find homepages in _RawData_? DBLP uses a hack. Some publications of type _www_ are not publications, but instead represent homepages. 
 5. What if a publication in RawData has two titles? Or two publishers? Or two years? (You will encounter duplicate fields, but not necessarily these ones.) You may pick any of them, but you need to work a little to write this in SQL.
 
+## **Problem 6: Run Data Analytic Queries**
+
+Write SQL queries to answer the following questions:
+
+1. Find the top 20 authors with the largest number of publications. (Runtime: under 10s)
+
+````
+
+````
