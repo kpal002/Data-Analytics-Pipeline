@@ -238,3 +238,139 @@ select * from PODS order by cnt desc limit 20;
 
 Time: 7687.022 ms (00:07.687)
 ````
+3. The two major database conferences are 'PODS' (theory) and 'SIGMOD Conference' (systems). Find
+
+(a). all authors who published at least 10 SIGMOD papers but never published a PODS paper, and
+
+````
+SELECT ts.AuthorID, a.Name, ts.cnt as NumPublications       
+        FROM PODS AS tp 
+                FULL OUTER JOIN SIGMOD AS ts ON tp.AuthorID = ts.AuthorID
+                LEFT OUTER JOIN Author AS a ON ts.AuthorID = a.AuthorID
+        WHERE tp.cnt IS NULL AND ts.cnt >= 10
+        ORDER BY ts.cnt DESC;
+	
+Time: 15711.447 ms (00:15.711)
+````
+(b). all authors who published at least 5 PODS papers but never published a SIGMOD paper. (Runtime: under 10s)
+
+````
+SELECT tp.AuthorID, a.Name, tp.cnt as NumPublications
+        FROM PODS AS tp 
+                FULL OUTER JOIN SIGMOD AS ts ON tp.AuthorID = ts.AuthorID
+                LEFT OUTER JOIN Author AS a ON tp.AuthorID = a.AuthorID
+        WHERE tp.cnt >= 5 AND ts.cnt IS NULL
+        ORDER BY tp.cnt DESC;
+	
+Time: 15170.231 ms (00:15.170)
+
+drop view SIGMOD;
+drop view PODS;
+````
+
+4. A decade is a sequence of ten consecutive years, e.g. 1982, 1983, ..., 1991. For each decade, compute the total number of publications in DBLP in that decade. Hint: for this and the next query you may want to compute a temporary table with all distinct years. (Runtime: under 1minute.)
+
+````
+select y.year as Startyear, sum(z.num)
+from numPubYear y, numPubYear z
+where z.year >= y.year and z.year < y.year+10
+group by y.year
+order by y.year;
+
+Time: 0.809 ms
+
+drop table numPubYear;
+````
+5. Find the top 20 most collaborative authors. That is, for each author determine its number of collaborators, then find the top 20. Hint: for this and some question below you may want to compute a temporary table of coauthors. (Runtime: a couple of minutes.)
+
+````
+with CoAuthor as (select a1.AuthorId as id1, a2.AuthorID as id2
+		from Authored a1 inner join Authored a2 on a1.pubid = a2.pubid
+		where not a1.AuthorID = a2.AuthorID)
+select id1 as id, count(DISTINCT(id2)) as NumCollaborators
+from CoAuthor
+group by id1
+order by NumCollaborators desc limit 20;
+
+Time: 36946.446 ms (00:36.946)
+````
+6. For each decade, find the most prolific author in that decade. Hint: you may want to first compute a temporary table, storing for each decade and each author the number of publications of that author in that decade. Runtime: a few minutes.
+
+````
+CREATE TABLE tempYearAuthor (
+		Year INT,
+		AuthorID INT,
+		NumPublications INT
+		);
+
+-- Time: 10.574 ms
+INSERT INTO tempYearAuthor (
+		SELECT CAST(p.Year AS INT), ad.AuthorID, COUNT(PubKey)
+			FROM Publication AS p INNER JOIN Authored AS ad ON p.PubID = ad.PubID
+			WHERE p.Year IS NOT NULL
+			GROUP BY p.Year, ad.AuthorID);
+
+-- Time: 36291.731 ms (00:36.292)
+WITH tmp AS (SELECT t1.Year AS StartYear, t1.AuthorID, SUM(t2.NumPublications) AS TotalNum
+				FROM tempYearAuthor AS t1 
+					INNER JOIN tempYearAuthor AS t2 ON t1.AuthorID = t2.AuthorID
+				WHERE t1.Year <= t2.Year AND 
+					  t2.Year < t1.Year + 10 AND
+					  t1.Year <= 2008
+				GROUP BY t1.Year, t1.AuthorID)
+SELECT StartYear, AuthorID
+	FROM tmp
+	WHERE (StartYear, TotalNum) IN (SELECT StartYear, MAX(TotalNum)
+										   	   FROM tmp
+										   	   GROUP BY StartYear);
+
+DROP TABLE tempYearAuthor;
+
+Time: 7705.587 ms (00:07.706)
+````
+
+7. Find the institutions that have published most papers in STOC; return the top 20 institutions. Then repeat this query with your favorite conference (SOSP or CHI, or ...), and see which are the best places and you didn't know about. Hint: where do you get information about institutions? Use the Homepage information: convert a Homepage like http://www.cs.ucr.edu/msalloum to http://www.cs.ucr.edu; now you have grouped all authors from our department, and we use this URL as surrogate for the institution. Read about substring manipulation in postres, by looking up _substring_, _position_, and _trim_.
+
+````
+create table Num(n int);
+-- Time: 0.233 ms
+insert into Num values(1);
+-- Time: 0.296 ms
+insert into Num(values(2));
+-- Time: 0.264 ms
+insert into Num(values(3));
+-- Time: 0.247 ms
+create table Inst(id int, inst text);
+
+insert into Inst(
+	with Url as (select a.AuthorID as id, split_part(a.homepage, '/', n.n) as url
+		from Author a, Num n)
+	select id, url
+	from (select ROW_NUMBER() over (partition by id) as r, id, url
+		from Url
+		where not url='' and not url='http:' and not url='https:') as rs
+	where r=1);
+
+-- Time: 2826.545 ms (00:02.827)
+
+select i.inst, sum(s.cnt) as tot_cnt
+from Inst i inner join STOC s on i.id=s.AuthorId
+group by i.inst
+order by tot_cnt desc limit 20;
+
+Time: 7482.111 ms (00:07.482)
+
+
+select i.inst, sum(s.cnt) as tot_cnt
+from Inst i inner join STOC s on i.id=s.AuthorId
+group by i.inst
+order by tot_cnt desc limit 20;
+
+Time: 7890.348 ms (00:07.890)
+
+drop table Num;
+drop table Inst;
+drop view STOC;
+drop view conference;
+````
+
