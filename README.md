@@ -188,5 +188,53 @@ Write SQL queries to answer the following questions:
 1. Find the top 20 authors with the largest number of publications. (Runtime: under 10s)
 
 ````
+WITH tmpAuth AS (SELECT AuthorID, COUNT(PubID) AS NumPublications
+                                FROM Authored
+                                GROUP BY AuthorID
+                                ORDER BY NumPublications DESC
+                                LIMIT 20)
+SELECT a.AuthorID, Name, NumPublications
+        FROM Author AS a INNER JOIN tmpAuth ON a.AuthorID = tmpAuth.AuthorID;
+	
+Time: 2238.800 ms (00:02.239)
+````
 
+Find the top 20 authors with the largest number of publications in STOC. Repeat this for two more conferences, of your choice. Suggestions: top 20 authors in SOSP, or CHI, or SIGMOD, or SIGGRAPH; note that you need to do some digging to find out how DBLP spells the name of your conference. (Runtime: under 10s.)
+
+````
+create view conference as (select pubid, booktitle
+		from Incollection) union (select pubid, booktitle
+		from Inproceedings);
+
+create view STOC as (select aed.AuthorID, count(*) as cnt
+	from conference c left outer join Authored aed on c.pubid=aed.pubid
+	where c.booktitle like '%STOC%' or c.booktitle like '%symposium of theory of computing%'
+	group by aed.AuthorID
+);
+
+select * from STOC order by cnt desc limit 20;
+
+Time: 8034.558 ms (00:08.035)
+````
+
+````
+create view SIGMOD as (select aed.AuthorID, count(*) as cnt
+	from conference c left outer join Authored aed on c.pubid=aed.pubid
+	where c.booktitle like '%SIGMOD%' or c.booktitle like '%special interest group on management of data%'
+	group by aed.AuthorID
+);
+select * from SIGMOD order by cnt desc limit 20;
+
+Time: 7469.679 ms (00:07.470)
+````
+
+````
+create view PODS as (select aed.AuthorId, count(*) as cnt
+	from conference c left outer join Authored aed on c.pubid=aed.pubid
+	where c.booktitle like '%PODS%'
+	group by aed.AuthorID
+);
+select * from PODS order by cnt desc limit 20;
+
+Time: 7687.022 ms (00:07.687)
 ````
