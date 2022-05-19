@@ -38,7 +38,7 @@ In this part we create the SQL tables in a database like postgres, MYSQL, or SQL
 ````
 $ psql dblp
 ````
-All the commands for creating tables are written in [createPubSchema.sql](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/createPubSchema.sql). To run from the command line, run
+All the queries for creating tables are written in [createPubSchema.sql](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/createPubSchema.sql). To run from the command line, run
 
 ````
 $ psql -f createPubSchema.sql dblp
@@ -181,6 +181,7 @@ The RawSchema and PubSchema are quite different, so there is a need to go throug
 4. DBLP knows the Homepage of some authors, and you need to store these in the Author table. But where do you find homepages in _RawData_? DBLP uses a hack. Some publications of type _www_ are not publications, but instead represent homepages. 
 5. What if a publication in RawData has two titles? Or two publishers? Or two years? (You will encounter duplicate fields, but not necessarily these ones.) You may pick any of them, but you need to work a little to write this in SQL.
 
+[importPubData.sql](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/importPubData.sql) contains all the insert, create Table, alter Table, etc statements.
 ## **Problem 6: Run Data Analytic Queries**
 
 Write SQL queries to answer the following questions:
@@ -373,7 +374,7 @@ drop table Inst;
 drop view STOC;
 drop view conference;
 ````
-
+All the above queries are included in [solution.sql](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/solution.sql)
 ## **Problem 7: Data Visualization**
 
 create some histograms (graphs), by writing a python script that first runs a query, then produces a graph using the result of the query.
@@ -384,4 +385,5 @@ Construct two histograms: the histogram of the number of collaborators, and the 
 
 Similarly for the second histogram. Try using a log scale, or a log-log scale, and choose the most appropriate. Feel free to produce a very nice graph (not necessarily a histogram).
 
+The code for this part is included in [graph.py](https://github.com/kpal002/Data-Analytics-Pipelinne/blob/main/graph.py)
 ![alt text](graph.png)
