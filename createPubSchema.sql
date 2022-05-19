@@ -11,7 +11,7 @@ CREATE TABLE Publication (
 		PubID INT NOT NULL CONSTRAINT PK_Publication PRIMARY KEY,
 		PubKey TEXT NOT NULL,
 		Title TEXT,
-		Year INT
+		Year TEXT
 		);
 		
 CREATE TABLE Authored (
@@ -25,7 +25,7 @@ CREATE TABLE Article (
 		Journal TEXT,
 		Month TEXT,
 		Volume TEXT,
-		Number INT,
+		Number TEXT,
 		PRIMARY KEY (PubID)
 		);
 		
